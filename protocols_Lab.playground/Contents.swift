@@ -90,3 +90,60 @@ var myBike = Bike()
 print(myBike.numberOfWheels)
 myBike.drive()
 
+// Question 3:
+
+protocol Bird {
+ var name: String { get }
+ var canFly: Bool { get }
+}
+
+protocol Flyable {
+ var airspeedVelocity: Double { get }
+}
+
+struct Penguin: Bird {
+    var name: String {
+        return "Penguin"
+    }
+    var canFly: Bool {
+        return false
+    }
+    
+}
+
+struct eagle: Bird, Flyable {
+    var name: String {
+        return "Eagle"
+    }
+    var canFly: Bool {
+        return true
+    }
+    var airspeedVelocity: Double
+}
+
+// Question 4:
+
+protocol Transformation {
+    mutating func transform()
+}
+
+enum SuperHero: Transformation {
+    
+    case hulk
+    case notHulk
+    
+    mutating func transform() {
+        if self == .hulk {
+            self = .notHulk
+        } else {
+            self = .hulk
+        }
+    }
+}
+
+var bruceBanner = SuperHero.hulk
+
+bruceBanner.transform() //hulk
+bruceBanner.transform() // nohulk
+
+
