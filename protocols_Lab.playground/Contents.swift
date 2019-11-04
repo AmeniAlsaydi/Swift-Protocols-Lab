@@ -147,3 +147,51 @@ bruceBanner.transform() //hulk
 bruceBanner.transform() // nohulk
 
 
+//Question 6
+
+protocol Communication {
+    var message: String { get }
+    
+    func talk()
+}
+
+class Cow: Communication {
+    var message: String {
+        return "moo"
+    }
+    
+    func talk() {
+        print(message)
+    }
+}
+
+class Dog: Communication {
+    var message: String{
+        return "woof"
+    }
+    
+    func talk() {
+           print(message)
+       }
+}
+
+class Cat: Communication {
+    var message: String{
+        return "meow"
+    }
+    
+    func talk() {
+           print(message)
+       }
+}
+
+var myCow = Cow()
+var myDog = Dog()
+var myCat = Cat()
+
+var animals: [Communication] = [myCow, myCat, myDog]
+
+animals.forEach{print($0.message)}
+
+// Question 6:
+
