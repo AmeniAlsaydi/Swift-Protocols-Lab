@@ -200,15 +200,19 @@ protocol HeartRateReceiverDelegate {
 }
 
 class HeartRateReceiver {
+    var delegate: HeartRateReceiverDelegate?
+    
     var currentHR: Int? {
         didSet {
             if let currentHR = currentHR {
                 print("The most recent heart rate reading is \(currentHR).")
+                delegate?.heartRateUpdated(to: currentHR)
             } else {
                 print("Looks like we can't pick up a heart rate.")
             }
         }
     }
+    
 
     func startHeartRateMonitoringExample() {
         for _ in 1...10 {
@@ -219,14 +223,17 @@ class HeartRateReceiver {
     }
 }
 
-class HeartRateViewController: UIViewController,HeartRateReceiverDelegate  {
+class HeartRateViewController: UIViewController, HeartRateReceiverDelegate  {
     var heartRateLabel: UILabel = UILabel()
+
     func heartRateUpdated(to bpm: Int) {
-        heartRateLabel.text = "The user has been shown a heart rate of."
+        heartRateLabel.text = "The user has been shown a heart rate of \(bpm)."
     }
 }
 
 var fitBit = HeartRateReceiver()
+var fitbitView = HeartRateViewController()
+fitBit.delegate = fitbitView
 
 fitBit.startHeartRateMonitoringExample()
 
