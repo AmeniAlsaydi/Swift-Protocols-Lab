@@ -195,3 +195,39 @@ animals.forEach{print($0.message)}
 
 // Question 6:
 
+protocol HeartRateReceiverDelegate {
+     func heartRateUpdated(to bpm: Int)
+}
+
+class HeartRateReceiver {
+    var currentHR: Int? {
+        didSet {
+            if let currentHR = currentHR {
+                print("The most recent heart rate reading is \(currentHR).")
+            } else {
+                print("Looks like we can't pick up a heart rate.")
+            }
+        }
+    }
+
+    func startHeartRateMonitoringExample() {
+        for _ in 1...10 {
+            let randomHR = 60 + Int.random(in: 0...15)
+            currentHR = randomHR
+            Thread.sleep(forTimeInterval: 2)
+        }
+    }
+}
+
+class HeartRateViewController: UIViewController,HeartRateReceiverDelegate  {
+    var heartRateLabel: UILabel = UILabel()
+    func heartRateUpdated(to bpm: Int) {
+        heartRateLabel.text = "The user has been shown a heart rate of."
+    }
+}
+
+var fitBit = HeartRateReceiver()
+
+fitBit.startHeartRateMonitoringExample()
+
+
